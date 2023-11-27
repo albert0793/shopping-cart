@@ -1,0 +1,7 @@
+- Save in local storage
+- Set total price in decimal values
+- Checkout page
+- Toast when you add a new product into cart
+- Proced to pay
+- Update cart info when Pop up is open
+- Close Pop up when you make scroll 
