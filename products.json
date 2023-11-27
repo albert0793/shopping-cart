@@ -1,10 +1,34 @@
 [
     {
-        "name": "",
-        "price": "",
-        "type": "",
-        "description": "",
-        "vitamins": [],
+        "id": "1",
+        "image": "../img/avocado.jpg",
+        "name": "Aguacate hass",
+        "price": 2560,
+        "type": "Fruit",
+        "description": "Recuerda que no hay una respuesta única para todos, ya que las decisiones de ubicación pueden ser muy personales. Es importante tomarte el tiempo necesario para evaluar tus prioridades y considerar cómo cada opción se alinea con tus metas y valores personales. Puedes hablar con amigos, familiares o asesores de carrera para obtener diferentes perspectivas y consejos.",
+        "vitamins": ["A", "B", "C", "D"],
+        "meditionUnit": "Libra",
+        "isOfert": false
+    },
+    {
+        "id": "2",
+        "image": "../img/tomatoes.jpg",
+        "name": "Cebolla de rama",
+        "price": 1980,
+        "type": "Vegetable",
+        "description": "Recuerda que no hay una respuesta única para todos, ya que las decisiones de ubicación pueden ser muy personales. Es importante tomarte el tiempo necesario para evaluar tus prioridades y considerar cómo cada opción se alinea con tus metas y valores personales. Puedes hablar con amigos, familiares o asesores de carrera para obtener diferentes perspectivas y consejos.",
+        "vitamins": ["A", "B", "C", "D"],
+        "meditionUnit": "Libra",
+        "isOfert": false
+    },
+    {
+        "id": "3",
+        "image": "../img/carrot.jpg",
+        "name": "Zanahoria Orgánica",
+        "price": 4690,
+        "type": "Vegetable",
+        "description": "Recuerda que no hay una respuesta única para todos, ya que las decisiones de ubicación pueden ser muy personales. Es importante tomarte el tiempo necesario para evaluar tus prioridades y considerar cómo cada opción se alinea con tus metas y valores personales. Puedes hablar con amigos, familiares o asesores de carrera para obtener diferentes perspectivas y consejos.",
+        "vitamins": ["A", "B", "C", "D"],
         "meditionUnit": "Libra",
         "isOfert": false
     }
