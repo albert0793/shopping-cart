@@ -105,7 +105,7 @@ function addProduct(e) {
   }
   totalItems.innerText = retrieveQuantityItems(itemsIntoCart);
   renderingCartElement(itemsIntoCart, "root");
-  saveToLocalStorage(itemsIntoCart, 'cart-items'); // save to local storage for later retrieval
+  saveToLocalStorage(itemsIntoCart, "cart-items"); // save to local storage for later retrieval
 }
 
 /**
@@ -134,8 +134,6 @@ function retrieveQuantityItems(data) {
   return data.reduce((acum, item) => acum + item.quantity, 0) || 0;
 }
 
-
-
 // when user makes click into cart element
 cartBtn.addEventListener("click", () => {
   cartItemsElement.classList.toggle("showing");
@@ -143,42 +141,47 @@ cartBtn.addEventListener("click", () => {
 
 // rendering the cart element
 function renderingCartElement(data, output) {
-  output = output || 'root';
+  output = output || "root";
   const element = document.getElementById(output);
+
   let html = "";
-  data.forEach((item, index) => {
-    html += `
-    <div class="item">
-      <figure>
-        <img src="${item.image}" alt="">
-      </figure>
-      <p>
-        <span>${item.name}</span>
-        <span>$${item.price * item.quantity}</span>
-        <i>${item.quantity}</i>
-        <!--<i class="fa-solid fa-trash"></i>-->
-        <i class="fa-solid fa-pencil" onclick="editing()"></i>
-      </p>
-    </div>
-`;
+  if (getTotalAmount(itemsIntoCart) > 0) {
+    data.forEach((item, index) => {
+      html += `
+      <div class="item">
+        <figure>
+          <img src="${item.image}" alt="">
+        </figure>
+        <p>
+          <span>${item.name}</span>
+          <small>${item.price}/${item.meditionUnit}</small>
+          <span>$${item.price * item.quantity}</span>
+          <i>${item.quantity}</i>
+          <!--<i class="fa-solid fa-trash"></i>-->
+          <i class="fa-solid fa-pencil" onclick="editing()"></i>
+        </p>
+      </div>
+  `;
+    });
 
-  });
-  let div = document.createElement("div");
-  div.innerHTML = `
-    <div class="">
-  <p>total</p>
-  <span>${getTotalAmount(itemsIntoCart)}</span>
-  </div>`;
+    document.getElementById("checkbtn").style.display = "block";
+    document.querySelector(
+      ".container-prices"
+    ).innerHTML = `<span>total: </span>
+    <span id="total-element"><small class="required">$</small>${getTotalAmount(itemsIntoCart)}</span>`;
+  } else {
+    document.querySelector(
+      ".container-prices"
+    ).innerHTML = `<span>your shopping cart is empty</span>`;
+    document.getElementById("checkbtn").style.display = "none";
+  }
+
   element.innerHTML = html;
-  element.appendChild(div)
-  console.log(data)
 }
-
 
 function getTotalAmount(data) {
-  return data.reduce((acum, item) => acum + (item.price * item.quantity),0);
+  return data.reduce((acum, item) => acum + item.price * item.quantity, 0);
 }
-
 
 // save into local storage
 function saveToLocalStorage(data, key) {
@@ -186,20 +189,20 @@ function saveToLocalStorage(data, key) {
   localStorage.setItem(key, temp);
 }
 
-
 // get from local storage
 function getFromLocalStorage(key) {
   let temp = JSON.parse(localStorage.getItem(key)) || [];
   return temp;
 }
 
-
 // execute only when the DOM has loaded
 document.addEventListener("DOMContentLoaded", () => {
-  let tempFromLocalStorage = getFromLocalStorage('cart-items');
-  if(!itemsIntoCart.length > 0) {
+  let tempFromLocalStorage = getFromLocalStorage("cart-items");
+  if (!itemsIntoCart.length > 0) {
     itemsIntoCart = tempFromLocalStorage;
   }
-  totalItems.innerText = retrieveQuantityItems(itemsIntoCart) || retrieveQuantityItems(tempFromLocalStorage);
-  renderingCartElement(tempFromLocalStorage, 'root');
+  totalItems.innerText =
+    retrieveQuantityItems(itemsIntoCart) ||
+    retrieveQuantityItems(tempFromLocalStorage);
+  renderingCartElement(tempFromLocalStorage, "root");
 });

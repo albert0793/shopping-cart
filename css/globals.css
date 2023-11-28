@@ -23,6 +23,11 @@ html{
   color: #FFFFFF;
   font-weight: 500;
   cursor: pointer;
+  display: block;
+}
+small {
+  font-size: 10px;
+  font-weight: 300;
 }
 .mt-2{
   margin-top: 20px;

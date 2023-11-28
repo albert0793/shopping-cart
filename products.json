@@ -7,7 +7,7 @@
         "type": "Fruit",
         "description": "Recuerda que no hay una respuesta única para todos, ya que las decisiones de ubicación pueden ser muy personales. Es importante tomarte el tiempo necesario para evaluar tus prioridades y considerar cómo cada opción se alinea con tus metas y valores personales. Puedes hablar con amigos, familiares o asesores de carrera para obtener diferentes perspectivas y consejos.",
         "vitamins": ["A", "B", "C", "D"],
-        "meditionUnit": "Libra",
+        "meditionUnit": "L",
         "isOfert": false
     },
     {
@@ -18,7 +18,7 @@
         "type": "Vegetable",
         "description": "Recuerda que no hay una respuesta única para todos, ya que las decisiones de ubicación pueden ser muy personales. Es importante tomarte el tiempo necesario para evaluar tus prioridades y considerar cómo cada opción se alinea con tus metas y valores personales. Puedes hablar con amigos, familiares o asesores de carrera para obtener diferentes perspectivas y consejos.",
         "vitamins": ["A", "B", "C", "D"],
-        "meditionUnit": "Libra",
+        "meditionUnit": "L",
         "isOfert": false
     },
     {
@@ -29,7 +29,7 @@
         "type": "Vegetable",
         "description": "Recuerda que no hay una respuesta única para todos, ya que las decisiones de ubicación pueden ser muy personales. Es importante tomarte el tiempo necesario para evaluar tus prioridades y considerar cómo cada opción se alinea con tus metas y valores personales. Puedes hablar con amigos, familiares o asesores de carrera para obtener diferentes perspectivas y consejos.",
         "vitamins": ["A", "B", "C", "D"],
-        "meditionUnit": "Libra",
+        "meditionUnit": "L",
         "isOfert": false
     }
 ]
