@@ -16,9 +16,9 @@ header{
 header .row{
   display: flex;
   width: 100px;
-  
   justify-content: space-between;
   align-items: center;
+  margin-right: 10px;
 }
 header.active{
   box-shadow: 0 4px 18px rgba(0,0,0, .18);
@@ -28,6 +28,10 @@ header .logo,
 header span{
   color: #333;
   font-weight: 500;
+  cursor: pointer;
+}
+header span{
+  font-size: 18px;
 }
 .logo a{
   text-decoration: none;

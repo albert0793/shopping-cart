@@ -1,11 +1,10 @@
 const cartBtn = document.getElementById("cart");
 const cartItemsElement = document.getElementById("cart__items");
 const addToCartButtons = document.querySelectorAll(".add__btn");
-const root = document.getElementById("root");
-let totalItemsIntoCartElement = cartBtn.querySelector(".total__items");
+let totalItems = cartBtn.querySelector(".total__items");
 let confirmBtn = document.getElementById("confirm-btn");
 const cardWrapper = document.getElementById("card-wrapper");
-const itemsIntoCart = [];
+let itemsIntoCart = [];
 let items;
 
 function createProductCard(product) {
@@ -79,32 +78,34 @@ document.addEventListener("DOMContentLoaded", () => {
  * @param {*} e
  * @returns {any | undefined}
  */
-async function addProduct(e) {
+function addProduct(e) {
   const parent = e.target.parentNode;
   let itemId = parent.getAttribute("id");
+  let idx = retrieveProductById(items, itemId);
+  const item = items[idx];
   const itemObject = {
-    id: itemId,
-    image: "../img/avocado.jpg",
-    name: "Aguacate hass",
-    price: 2560,
-    type: "Fruit",
-    description:
-      "Recuerda que no hay una respuesta única para todos, ya que las decisiones de ubicación pueden ser muy personales. Es importante tomarte el tiempo necesario para evaluar tus prioridades y considerar cómo cada opción se alinea con tus metas y valores personales. Puedes hablar con amigos, familiares o asesores de carrera para obtener diferentes perspectivas y consejos.",
-    vitamins: ["A", "B", "C", "D"],
-    meditionUnit: "Libra",
+    id: item.id,
+    image: item.image,
+    name: item.name,
+    price: item.price,
+    type: item.type,
+    description: item.description,
+    vitamins: item.vitamins,
+    meditionUnit: item.meditionUnit,
     isOfert: false,
     quantity: 1,
-    pushedDate: new Date().toUTCString()
+    pushedDate: new Date().toUTCString(),
   };
   if (!filterProduct(itemsIntoCart, itemId)) {
     itemsIntoCart.push(itemObject);
   } else {
-    
     let id = retrieveProductById(itemsIntoCart, itemId);
     let product = itemsIntoCart[id];
     product.quantity += 1;
   }
-  totalItemsIntoCartElement.innerText = retrieveQuantityItems(itemsIntoCart);
+  totalItems.innerText = retrieveQuantityItems(itemsIntoCart);
+  renderingCartElement(itemsIntoCart, "root");
+  saveToLocalStorage(itemsIntoCart, 'cart-items'); // save to local storage for later retrieval
 }
 
 /**
@@ -120,8 +121,8 @@ function filterProduct(data, id) {
 
 // get a product object from the shop
 function retrieveProductById(data, id) {
-  if(data.findIndex(item => item.id == id) != -1) {
-    let productId = data.findIndex(item => item.id === id);
+  if (data.findIndex((item) => item.id == id) != -1) {
+    let productId = data.findIndex((item) => item.id === id);
     return productId;
   } else {
     return -1;
@@ -134,25 +135,71 @@ function retrieveQuantityItems(data) {
 }
 
 
-document.addEventListener('DOMContentLoaded', () => {
-  totalItemsIntoCartElement.innerText = retrieveQuantityItems(itemsIntoCart);
-});
-
 
 // when user makes click into cart element
-cartBtn.addEventListener('click', () => {
-  cartItemsElement.classList.toggle('showing');
+cartBtn.addEventListener("click", () => {
+  cartItemsElement.classList.toggle("showing");
 });
-
 
 // rendering the cart element
 function renderingCartElement(data, output) {
-  let html;
+  output = output || 'root';
   const element = document.getElementById(output);
+  let html = "";
   data.forEach((item, index) => {
     html += `
-    
-    `
+    <div class="item">
+      <figure>
+        <img src="${item.image}" alt="">
+      </figure>
+      <p>
+        <span>${item.name}</span>
+        <span>$${item.price * item.quantity}</span>
+        <i>${item.quantity}</i>
+        <!--<i class="fa-solid fa-trash"></i>-->
+        <i class="fa-solid fa-pencil" onclick="editing()"></i>
+      </p>
+    </div>
+`;
+
   });
+  let div = document.createElement("div");
+  div.innerHTML = `
+    <div class="">
+  <p>total</p>
+  <span>${getTotalAmount(itemsIntoCart)}</span>
+  </div>`;
   element.innerHTML = html;
+  element.appendChild(div)
+  console.log(data)
 }
+
+
+function getTotalAmount(data) {
+  return data.reduce((acum, item) => acum + (item.price * item.quantity),0);
+}
+
+
+// save into local storage
+function saveToLocalStorage(data, key) {
+  let temp = JSON.stringify(data);
+  localStorage.setItem(key, temp);
+}
+
+
+// get from local storage
+function getFromLocalStorage(key) {
+  let temp = JSON.parse(localStorage.getItem(key)) || [];
+  return temp;
+}
+
+
+// execute only when the DOM has loaded
+document.addEventListener("DOMContentLoaded", () => {
+  let tempFromLocalStorage = getFromLocalStorage('cart-items');
+  if(!itemsIntoCart.length > 0) {
+    itemsIntoCart = tempFromLocalStorage;
+  }
+  totalItems.innerText = retrieveQuantityItems(itemsIntoCart) || retrieveQuantityItems(tempFromLocalStorage);
+  renderingCartElement(tempFromLocalStorage, 'root');
+});
